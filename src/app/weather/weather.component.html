@@ -1,0 +1,35 @@
+<div class="container">
+<h1>Weather App 🌤️</h1>
+
+<input
+type="text"
+[ngModel]="city()"
+(ngModelChange)="city.set($event)"
+(keyup.enter)="searchWeather()"
+placeholder="Enter city"
+/>
+
+<button (click)="searchWeather()">Search</button>
+
+@if (loading()) {
+<p>Loading...</p>
+}
+
+@if (errorMessage()) {
+<p class="error">{{ errorMessage() }}</p>
+}
+
+@if (weatherData(); as w) {
+<div class="card">
+<h2>{{ w.name }}</h2>
+
+<img
+[src]="'https://openweathermap.org/img/wn/' + w.weather[0].icon + '@2x.png'"
+/>
+
+<p>Temp: {{ w.main.temp }} °C</p>
+<p>Humidity: {{ w.main.humidity }}%</p>
+<p>Condition: {{ w.weather[0].main }}</p>
+</div>
+}
+</div>
